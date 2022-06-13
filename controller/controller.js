@@ -53,5 +53,22 @@ class controller {
       res.send(error);
     }
   };
+  static logout=async(req,res)=>{
+    try{
+      const token = await register.findOne({ email: req.header('email') });
+      const result = await register.updateOne(
+        { _id:token._id },
+        {
+          $set: {
+            accessToken:" ",
+          },
+        })
+        if(result)return res.send('log out')
+      
+    }
+    catch(error){
+      res.send(error)
+    }
+  }
 }
 export default controller;
